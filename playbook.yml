@@ -1,0 +1,18 @@
+-
+   name: First-Playbook
+   hosts: all
+   vars:
+     age: 17
+   tasks:
+     - name: I am a child
+       command: echo "I am a child"
+       when: "{{ age }} < 18"
+       register: output
+     - debug:
+         var: output.stdout_lines
+     - name: I am an adult
+       command: echo "I am an adult"
+       when: "{{ age }} > 18"
+       register: output
+     - debug:
+         var: output.stdout_lines

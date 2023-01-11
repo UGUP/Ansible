@@ -1,0 +1,18 @@
+# Inventory file can have both the methods of either ssh using pem
+#file or ssh using user name and password 
+#ssh using pem is straight forward 
+#ssh using password you need to make following chnages to client machine
+#1) create username and password suing adduser command on client
+#2) go to /etc/sshd/sshd_config file and enale password authentication =yes
+#3)You are getting this error because when we do SSH in the remote system it will ask yes or no. 
+#But Ansible doesn't have the capability to ask this in run time. 
+#So you need to disable host_key_checking in your ansible.conf file as shown below.
+# [root@localhost ~]# vim /etc/ansible/ansible.cfg
+# [defaults]
+# inventory = /etc/hostfile.txt
+# host_key_checking = False
+#4) verify using  ansible all -m ping -i inventory
+
+
+52.91.24.233 ansible_ssh_user=ubuntu ansible_ssh_private_key_file="./Terraform.pem"
+44.205.249.148  ansible_ssh_user=upma ansible_ssh_pass=upma
